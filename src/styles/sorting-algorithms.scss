@@ -1,0 +1,16 @@
+#SortingAlgorithms {
+  .sort-graph {
+    width: 100%;
+    height: calc(100vh - 9.5rem - var(--top-bar-height)) !important;
+  }
+
+  .step-info {
+    display: block;
+    width: 100%;
+    height: 1.5rem;
+    opacity: 0.6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

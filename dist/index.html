@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Algorithms with interactive visualizations made in the Rust programming language.">
+    <meta name="theme-color" content="#adff2d">
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/global-9a7a396683bebd18.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/ico-icon" href="/assets/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-192x192.png">
+
+    <script>
+      // Register ServiceWorker
+      window.onload = () => {
+        "use strict";
+
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
+        }
+      };
+    </script>
+
+    <title>Algorithms</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      html {
+        --color-accent: #bbff33;
+        --color-accent-hsl: 80, 100%, 60%;
+        --bg-color-1: hsl(200, 10%, 15%);
+        --bg-color-2: hsl(200, 15%, 10%);
+        --top-bar-height: 4rem;
+      }
+
+      body {
+        background-color: var(--bg-color-1);
+        color: white;
+        box-sizing: border-box;
+      }
+
+      ::selection {
+        background-color: hsla(var(--color-accent-hsl), 50%);
+        color: white;
+      }
+
+      * {
+        background-color: transparent;
+        color: white;
+        font-family: "Roboto Mono", Consolas, monospace;
+      }
+    </style>
+  
+<link rel="preload" href="/algorithms_website-632e7940eb091ab_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/algorithms_website-632e7940eb091ab.js"></head>
+<body>
+<script type="module">import init from '/algorithms_website-632e7940eb091ab.js';init('/algorithms_website-632e7940eb091ab_bg.wasm');</script><script>(function () {
+    var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    var url = protocol + '//' + window.location.host + '/_trunk/ws';
+    var poll_interval = 5000;
+    var reload_upon_connect = () => {
+        window.setTimeout(
+            () => {
+                // when we successfully reconnect, we'll force a
+                // reload (since we presumably lost connection to
+                // trunk due to it being killed, so it will have
+                // rebuilt on restart)
+                var ws = new WebSocket(url);
+                ws.onopen = () => window.location.reload();
+                ws.onclose = reload_upon_connect;
+            },
+            poll_interval);
+    };
+
+    var ws = new WebSocket(url);
+    ws.onmessage = (ev) => {
+        const msg = JSON.parse(ev.data);
+        if (msg.reload) {
+            window.location.reload();
+        }
+    };
+    ws.onclose = reload_upon_connect;
+})()
+</script></body></html>
