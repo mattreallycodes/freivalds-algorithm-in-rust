@@ -1,5 +1,6 @@
 extern crate pathfinding;
 extern crate sorting_algorithms;
+extern crate probabilistic; 
 
 mod components;
 mod hooks;
@@ -22,6 +23,10 @@ enum Route {
     PathfindingAlgorithms,
     #[at("/pathfinding/:algorithm")]
     PathfindingAlgorithm,
+    #[at("/probabilistic")]
+    ProbabilisticAlgorithms,
+    #[at("/probabilisitc/:algorithm")]
+    ProbabilisticAlgorithm,
 }
 
 fn switch(routes: &Route) -> Html {
@@ -41,6 +46,12 @@ fn switch(routes: &Route) -> Html {
         Route::PathfindingAlgorithm => html! {
             <Switch<pages::pathfinding::PathfindingRoute> render={Switch::render(pages::pathfinding::switch_pathfinding)} />
         },
+        Route::ProbabilisticAlgorithms => html! {
+            <Switch<pages::probabilistic::ProbabilisticRoute> render={Switch::render(pages::probabilistic::switch_probabilistic)} />
+        },
+        Route::ProbabilisticAlgorithm => html! {
+            <Switch<pages::probabilistic::ProbabilisticRoute> render={Switch::render(pages::probabilistic::switch_probabilistic)} />
+        }
     }
 }
 
@@ -52,6 +63,7 @@ fn app() -> Html {
                 <div class="page-links">
                     <Link<Route> to={Route::SortingAlgorithms}>{ "Sorting" }</Link<Route>>
                     <Link<Route> to={Route::PathfindingAlgorithms}>{ "Pathfinding" }</Link<Route>>
+                    <Link<Route> to={Route::ProbabilisticAlgorithms}>{ "Probabilistic" }</Link<Route>>
                 </div>
                 <div class="other-links">
                     <a href="https://github.com/Jondolf/rust-algorithms" target="_blank">

@@ -6,3 +6,4 @@ pub mod step_slider;
 
 pub mod pathfinding;
 pub mod sorting_algorithms;
+pub mod probabilistic;

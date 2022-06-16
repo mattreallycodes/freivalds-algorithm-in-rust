@@ -1,0 +1,433 @@
+#SortingAlgorithms .sort-graph {
+  width: 100%;
+  height: calc(100vh - 9.5rem - var(--top-bar-height)) !important;
+}
+#SortingAlgorithms .step-info {
+  display: block;
+  width: 100%;
+  height: 1.5rem;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#Pathfinding .path-grid {
+  display: grid;
+  width: 100%;
+  max-height: calc(100vh - var(--top-bar-height) - var(--main-padding) * 2 - var(--step-slider-height) - 3.5rem);
+  margin: auto;
+  background-color: var(--bg-color-1);
+}
+#Pathfinding .path-grid .grid-cell {
+  aspect-ratio: 1/1;
+  box-sizing: border-box;
+  outline: 1px solid hsla(0deg, 0%, 50%, 0.2);
+}
+#Pathfinding .path-grid .grid-cell.start {
+  fill: var(--color-accent);
+  z-index: 2;
+}
+#Pathfinding .path-grid .grid-cell.end {
+  fill: orangered;
+  z-index: 2;
+}
+#Pathfinding .path-grid .grid-cell.wall {
+  fill: #ccc;
+  outline: none;
+}
+#Pathfinding .path-grid .grid-cell.unvisited {
+  fill: transparent;
+}
+#Pathfinding .path-grid .grid-cell.visited {
+  fill: rgba(0, 102, 255, 0.6);
+}
+#Pathfinding .path-grid .grid-cell.new-visited {
+  fill: #00bbff;
+}
+#Pathfinding .path-grid .path {
+  stroke: orange;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  z-index: 1;
+}
+#Pathfinding .path-toolbar {
+  display: flex;
+  width: 100%;
+  height: 3.5rem;
+}
+#Pathfinding .path-toolbar .toolbar-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+#Pathfinding .path-toolbar .toolbar-button.active {
+  background-color: var(--bg-color-2);
+}
+@keyframes path {
+  0% {
+    background-color: blue;
+  }
+  100% {
+    background-color: orange;
+  }
+}
+@keyframes visited {
+  0% {
+    transform: scale(0.3);
+    background-color: rgb(0, 217, 159);
+  }
+  100% {
+    transform: scale(1);
+    background-color: blue;
+  }
+}
+@keyframes newVisited {
+  0% {
+    transform: scale(0.3);
+    background-color: white;
+  }
+  100% {
+    transform: scale(1);
+    background-color: rgb(0, 217, 159);
+  }
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-color-2);
+  border: 0.3em solid var(--bg-color-2);
+  border-radius: 0.5em;
+}
+
+.top-bar {
+  height: var(--top-bar-height);
+  background-color: var(--bg-color-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  box-sizing: border-box;
+}
+.top-bar .page-links {
+  display: flex;
+  align-items: center;
+}
+.top-bar .page-links a {
+  margin-right: 1.5rem;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.top-bar .page-links a:hover {
+  color: var(--color-accent);
+}
+.top-bar .other-links {
+  height: 100%;
+}
+.top-bar .other-links img {
+  height: 100%;
+}
+
+.page {
+  width: 100%;
+  height: calc(100vh - var(--top-bar-height));
+  display: flex;
+}
+.page .sidebar {
+  position: relative;
+  max-width: 75vw;
+  width: 4px;
+  max-height: 100vh-var(--top-bar-height);
+  height: 100%;
+  overflow: auto;
+  background-color: var(--bg-color-2);
+  color: white;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.page .sidebar .sidebar-content {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.page .sidebar .sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--bg-color-2);
+  border: 0.3em solid var(--bg-color-2);
+}
+.page .sidebar .sidebar-content > :first-child {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  margin: 0;
+}
+.page .sidebar .sidebar-content > :last-child {
+  padding-bottom: 1.5rem;
+}
+.page .sidebar .config-section {
+  padding: 0 1.5rem;
+}
+.page .sidebar .resize-handle.resize-width {
+  display: block;
+  width: 4px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: ew-resize;
+}
+.page .sidebar .resize-handle.resize-height {
+  display: none;
+  height: 4px;
+  top: 0;
+  right: 0;
+  left: 0;
+  cursor: ns-resize;
+}
+.page .sidebar > h2 {
+  height: 3rem;
+  margin: 0;
+}
+.page main {
+  --main-padding: 1.5rem;
+  width: 100%;
+  max-height: 100%;
+  padding: var(--main-padding);
+  box-sizing: border-box;
+  overflow: auto;
+}
+.page main .visualization {
+  --step-slider-height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-height: calc(100vh - var(--top-bar-height) - var(--main-padding) * 2);
+}
+.page main .visualization * {
+  box-sizing: border-box;
+}
+.page main .visualization > h2 {
+  height: 3rem;
+  margin: 0;
+}
+
+.resize-handle {
+  position: absolute;
+  background: var(--color-accent);
+  opacity: 0;
+  transition: opacity 150ms ease;
+  user-select: none;
+}
+.resize-handle:hover {
+  opacity: 0.5;
+}
+
+button,
+input,
+select {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.input {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.input button,
+.input input,
+.input select {
+  width: 100%;
+  display: flex;
+}
+.input.checkbox {
+  display: flex;
+  align-items: center;
+}
+.input.checkbox input {
+  margin-right: 0.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+}
+.input.checkbox label {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+.input button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.25rem;
+  padding: 0.3rem 0.5rem;
+  border: 2px solid #bbb;
+  border-radius: 0.25rem;
+  outline: none;
+  background-color: hsl(200deg, 15%, 15%);
+  box-sizing: border-box;
+  font-size: 0.9em;
+  transition: border 250ms ease;
+}
+.input button:active, .input button:focus {
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+.input label {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.75em;
+  color: var(--color-accent);
+  opacity: 0.75;
+  cursor: default;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.input input,
+.input select {
+  display: block;
+  height: 3.25rem;
+  padding: 1rem 0.5rem 0.1rem 0.5rem;
+  border: 2px solid #bbb;
+  border-radius: 0.25rem;
+  outline: none;
+  background-color: hsl(200deg, 15%, 15%);
+  box-sizing: border-box;
+  font-size: 0.9em;
+  transition: border 250ms ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.input input:focus,
+.input select:focus {
+  border: 2px solid var(--color-accent);
+}
+
+input[type=range] {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 1.25rem;
+}
+
+.step-slider {
+  height: var(--step-slider-height);
+  display: flex;
+  align-items: center;
+}
+.step-slider button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 0.25rem;
+  transition: border 250ms ease;
+  cursor: pointer;
+}
+.step-slider button:focus-visible {
+  border: 2px solid var(--color-accent);
+}
+.step-slider button svg {
+  width: 50%;
+  height: 50%;
+}
+.step-slider input[type=range] {
+  flex: 1;
+  outline: 2px solid transparent;
+  transition: outline 250ms ease;
+}
+.step-slider input[type=range]:focus-visible {
+  outline: 2px solid var(--color-accent);
+}
+
+details > summary {
+  margin: 0.25rem 0;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: border 250ms ease;
+}
+details > summary:focus-visible {
+  border: 2px solid var(--color-accent);
+}
+details.collapsible > :nth-child(2) {
+  margin-top: 0.5rem;
+}
+details.collapsible.config-section > summary {
+  font-weight: bold;
+  user-select: none;
+  padding: 0.5rem 0;
+}
+
+pre {
+  width: 100%;
+  white-space: normal;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid gray;
+}
+table th,
+table td {
+  border: 1px solid gray;
+  padding: 0.5rem;
+}
+
+.algorithm-description {
+  width: 100%;
+  padding: 1.5rem 0;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 800px) {
+  .page {
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+  .page .sidebar {
+    max-width: 100vw;
+    width: 100%;
+    height: 4px;
+  }
+  .page .sidebar .resize-handle.resize-width {
+    display: none;
+  }
+  .page .sidebar .resize-handle.resize-height {
+    display: block;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 0.8em;
+  }
+
+  .input button {
+    height: 2.75rem;
+    padding: 0.3rem;
+  }
+
+  .input input,
+.input select {
+    height: 2.75rem;
+    padding: 0.8rem 0.3rem 0 0.3rem;
+  }
+}
